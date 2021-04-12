@@ -13,13 +13,13 @@
     <form action="process/addsparesprocess.php" method="post">
         <label>หมวด</label>
         <select name="type_spare">
-            <option value="engine">หมวดเครื่องยนต์</option>
-            <option value="fuel">หมวดเชื้อเพลิง</option>
-            <option value="transmit_power">หมวดส่งกำลัง</option>
-            <option value="air_conditioners">หมวดเครื่องปรับอากาศ</option>
-            <option value="external_body">หมวดตัวถังภายนอก</option>
-            <option value="electricity">หมวดไฟฟ้า</option>
-            <option value="general">หมวดทั่วไป</option>
+            <option value="เครื่องยนต์">หมวดเครื่องยนต์</option>
+            <option value="เชื้อเพลิง">หมวดเชื้อเพลิง</option>
+            <option value="ส่งกำลัง">หมวดส่งกำลัง</option>
+            <option value="เครื่องปรับอากาศ">หมวดเครื่องปรับอากาศ</option>
+            <option value="ตัวถังภายนอก">หมวดตัวถังภายนอก</option>
+            <option value="ไฟฟ้า">หมวดไฟฟ้า</option>
+            <option value="ทั่วไป">หมวดทั่วไป</option>
         </select><br>
         <label>ประเภทรถยนต์</label>
         <select name="type_car">

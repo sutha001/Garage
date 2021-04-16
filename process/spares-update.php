@@ -1,10 +1,14 @@
 <?php include 'connect.php';
 
+// ดึง id ที่รับมา
 
-$Spares_id = isset($_GET['Spares_id']) ? $_GET['Spares_id'] : '';
+$Spares_id = mysqli_real_escape_string($connect, $_GET['Spares_id']);
 
-$sql = "SELECT * FROM spares";
+$sql = "SELECT * FROM spares WHERE Spares_id='$Spares_id' ";
 $result = $connect->query($sql);
+
+$row = mysqli_fetch_array($result);
+extract($row);
 
 
 ?>
@@ -21,9 +25,12 @@ $result = $connect->query($sql);
 
 <body>
     <h1>แก้ไขอะไหล่</h1>
-    <form action="process/addsparesprocess.php" method="post">
+    <form action="spares-update-prosess.php" method="post">
+        <label>ID</label>
+        <input type="text" name="Spare_id" readonly value="<?= $Spares_id; ?>"><br>
         <label>หมวด</label>
         <select name="type_spare">
+            <option value="<?= $spares_type; ?>">หมวด<?= $spares_type; ?></option>
             <option value="เครื่องยนต์">หมวดเครื่องยนต์</option>
             <option value="เชื้อเพลิง">หมวดเชื้อเพลิง</option>
             <option value="ส่งกำลัง">หมวดส่งกำลัง</option>
@@ -34,6 +41,7 @@ $result = $connect->query($sql);
         </select><br>
         <label>ประเภทรถยนต์</label>
         <select name="type_car">
+            <option value="<?= $spares_model; ?>"><?= $spares_model; ?></option>
             <option value="รถเก๋ง">รถเก๋ง</option>
             <option value="รถตู้">รถตู้</option>
             <option value="รถกระบะ">รถกระบะ</option>
@@ -52,12 +60,12 @@ $result = $connect->query($sql);
             <option value="chevrolet">CHEVROLET</option>
         </select><br>
         <label>รายละเอียด</label>
-        <input type="text" name="details_spare" value="<?php echo $row['spare_detales']?>"><br>
+        <input type="text" name="details_spare" value="<?= $spares_details; ?>"><br>
         <label>เรท</label>
-        <input type="text" name="rate_spare"><br>
+        <input type="text" name="rate_spare" value="<?= $rate; ?>"><br>
         <label>ราคา</label>
-        <input type="number" name="price_spare"><br>
-        <input type="submit" value="add spares">
+        <input type="number" name="price_spare" value="<?= $spares_price; ?>"><br>
+        <input type="submit" value="แก้ไข">
     </form>
 </body>
 

@@ -12,18 +12,18 @@
     <h1>Add Customer</h1>
     <form action="process/addcustomerprocess.php" method="post">
         <label>เลขทะเบียนรถยนต์</label>
-        <input type="text" name="vrnumber"><br> <!-- vrnumber is Vehicle registration number -->
+        <input type="text" name="vrnumber"><br> 
         <label>ชือ-นามสกุล</label>
         <input type="text" name="name"><br>
         <label>เบอร์โทรศัพท์</label>
         <input type="text" name="phone_number"><br>
         <label>ประเภทรถยนต์</label>
         <select name="type_car">
-            <option value="car">รถเก๋ง</option>
-            <option value="van">รถตู้</option>
-            <option value="pickup_truck">รถกระบะ</option>
+            <option value="รถเก๋ง">รถเก๋ง</option>
+            <option value="รถตู้">รถตู้</option>
+            <option value="รถกระบะ">รถกระบะ</option>
         </select><br>
-        <label>รุ่นรถยนต</label>
+        <label>รุ่นรถยนต์</label>
         <input type="text" name="model_car"><br>
         <label>เลขตัวถัง</label>
         <input type="text" name="vin_car"><br>

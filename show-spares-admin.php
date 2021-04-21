@@ -39,8 +39,8 @@
                         <td><?php echo $row['rate']; ?></td>
                         <td><?php echo $row['spares_price']; ?></td>
 
-                        <td><a href='process/spares-update.php?Spares_id=<?php echo $row['Spares_id']; ?>'>แก้ไข</a></td>;
-                        <td><a href='process/spares-delete.php?Spares_id=<?php echo $row['Spares_id']; ?>' onclick="return confirm('Do you want to delete this record? !!!')">ลบ</a></td>;
+                        <td><a href='process/spares-update.php?Spares_id=<?php echo $row['Spares_id']; ?>'>แก้ไข</a></td>
+                        <td><a href='process/spares-delete.php?Spares_id=<?php echo $row['Spares_id']; ?>' onclick="return confirm('Do you want to delete this record? !!!')">ลบ</a></td>
                     </tr>
                 <?php endwhile ?>
             </tbody>

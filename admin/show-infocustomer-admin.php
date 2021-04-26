@@ -47,8 +47,8 @@
                         <td><?php echo $row['brand_car']; ?></td>
                         <td><?php echo $row['engine_car']; ?></td>
 
-                        <td><a href='process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id'];?>'>แก้ไข</a></td>
-                        <td><a href='process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id'];?>' onclick="return confirm('Do you want to delete this record? !!!')">ลบ</a></td>
+                        <td><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id'];?>'>แก้ไข</a></td>
+                        <td><a href='../process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id'];?>' onclick="return confirm('Do you want to delete this record? !!!')">ลบ</a></td>
                     </tr>
                 <?php endwhile ?>
             </tbody>

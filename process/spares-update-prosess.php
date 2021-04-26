@@ -24,7 +24,7 @@ mysqli_query($connect, $sql);
 echo '<script>alert("แก้ไขข้อมูลสำเร็จ")</script>';
 
 
-header('Refresh: 1; url=../show-spares-admin.php');
+header('Refresh: 1; url=../admin/show-spares-admin.php');
 
 
 

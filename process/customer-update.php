@@ -3,12 +3,9 @@
 // ดึง id ที่รับมา
 
 $cus_car_id = mysqli_real_escape_string($connect, $_GET['cus_car_id']);
-$car_id = mysqli_real_escape_string($connect, $_GET['car_id']);
 
 $sql = "SELECT * 
-FROM customer
-JOIN customer_car
-ON cstomer_cus_car_id = cus_car_id 
+FROM customer,customer_car
 WHERE cus_car_id='$cus_car_id' ";
 
 $result = $connect->query($sql);
@@ -30,9 +27,9 @@ extract($row);
 
 <body>
     <h1>แก้ไขชื่อลูกค้า </h1>
-    <form action="process/addcustomerprocess.php" method="post">
+    <form action="customer-update-process.php" method="post">
         <label>ID</label>
-        <input type="text" name="Spare_id" readonly value="<?= $car_id; ?>"><br>
+        <input type="text" name="id" readonly value="<?= $car_id; ?>"><br>
         <label>เลขทะเบียนรถยนต์</label>
         <input type="text" name="vrnumber" value="<?= $cus_car_id; ?>"><br>
         <label>ชือ-นามสกุล</label>

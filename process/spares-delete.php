@@ -10,7 +10,7 @@ $result = $connect->query($sql);
 if ($result) {
     echo "<script type='text/javascript'>";
     echo "alert('delete Succesfuly');";
-    echo "window.location = '../show-spares-admin.php'; ";
+    echo "window.location = '../admin/show-spares-admin.php'; ";
     echo "</script>";
 } else {
     echo "<script type='text/javascript'>";

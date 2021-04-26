@@ -18,6 +18,6 @@
     VALUES ('$type_car','$model_car', '$vin_car','$brand_car','$engine_car', '$car_id')");
 
 echo '<script>alert("เพิ่มข้อมูลลูกค้าสำเร็จสำเร็จ")</script>';
-header('Refresh: 1; url=../addcustomer.php');
+header('Refresh: 1; url=../admin/addcustomer.php');
 
 ?>

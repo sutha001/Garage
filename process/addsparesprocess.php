@@ -14,7 +14,7 @@
     echo '<script>alert("เพิ่มข้อมูล Spares สำเร็จ")</script>';
 
 
-    header('Refresh: 1; url=../addspares.php');
+    header('Refresh: 1; url=../admin/addspares.php');
 
 
 

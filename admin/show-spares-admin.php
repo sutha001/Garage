@@ -1,4 +1,4 @@
-<?php include 'process/connect.php'; ?>
+<?php include '../process/connect.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">

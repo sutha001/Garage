@@ -21,14 +21,25 @@ extract($row);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Spares</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../admin/from.css">
 </head>
 
 <body>
+<div class='allfrom'>
     <h1>แก้ไขอะไหล่</h1>
+    <hr>
     <form action="spares-update-prosess.php" method="post">
-        <label>ID</label>
-        <input type="text" name="Spare_id" readonly value="<?= $Spares_id; ?>"><br>
-        <label>หมวด</label>
+
+<div class="row">
+        <div class="col-4 d-flex ">    <label class = 'col-4' >ID</label>
+        <input class = 'col-6' type="text" name="Spare_id" readonly value="<?= $Spares_id; ?>"><br>
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-4 d-flex ">
+        <label class = 'col-4' >หมวด</label>
         <select name="type_spare">
             <option value="<?= $spares_type; ?>">หมวด<?= $spares_type; ?></option>
             <option value="เครื่องยนต์">หมวดเครื่องยนต์</option>
@@ -39,14 +50,22 @@ extract($row);
             <option value="ไฟฟ้า">หมวดไฟฟ้า</option>
             <option value="ทั่วไป">หมวดทั่วไป</option>
         </select><br>
-        <label>ประเภทรถยนต์</label>
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-4 d-flex ">
+        <label class = 'col-4' >ประเภทรถยนต์</label>
         <select name="type_car">
             <option value="<?= $spares_model; ?>"><?= $spares_model; ?></option>
             <option value="รถเก๋ง">รถเก๋ง</option>
             <option value="รถตู้">รถตู้</option>
             <option value="รถกระบะ">รถกระบะ</option>
         </select><br>
-        <label>ยี่ห้อ</label>
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-4 d-flex ">
+        <label class = 'col-4' >ยี่ห้อ</label>
         <select name="brand_car">
             <option value="toyota">TOYOTA</option>
             <option value="isuza">ISUZU</option>
@@ -59,13 +78,34 @@ extract($row);
             <option value="suzuki">SUZUKI</option>
             <option value="chevrolet">CHEVROLET</option>
         </select><br>
-        <label>รายละเอียด</label>
-        <input type="text" name="details_spare" value="<?= $spares_details; ?>"><br>
-        <label>เรท</label>
-        <input type="text" name="rate_spare" value="<?= $rate; ?>"><br>
-        <label>ราคา</label>
-        <input type="number" name="price_spare" value="<?= $spares_price; ?>"><br>
-        <input type="submit" value="แก้ไข">
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-4 d-flex ">
+        <label class = 'col-4' >รายละเอียด</label>
+        <input class = 'col-6' type="text" name="details_spare" value="<?= $spares_details; ?>"><br>
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-4 d-flex ">
+        <label class = 'col-4' >เรท</label>
+        <input class = 'col-6' type="text" name="rate_spare" value="<?= $stock; ?>"><br>
+        </div>
+            </div>
+        <div class="row">
+        <div class="col-4 d-flex ">
+        <label class = 'col-4' >ราคา</label>
+        <input class = 'col-6' type="number" name="price_spare" value="<?= $spares_price; ?>"><br>
+        </div>
+            </div>
+            <hr>
+        <div class="row">
+        <input  class="btn btn-dark" style="margin:1% auto 1%" type="submit" value="แก้ไข">
+            </div>
+            <div class="row">
+   
+               <a href="../admin/show-spares-admin.php" class="btn btn-dark">ย้อนกลับ</a>
+           </div>
     </form>
 </body>
 

@@ -1,4 +1,4 @@
-<?php include '../process/connect.php'; ?>
+<?php include 'connect.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,19 +11,24 @@
 <body>
     
 <?php
-    $sql = "SELECT * FROM appoint";
+    $create_date='';
+    $ap_data='';
+
+    $sql = "SELECT * FROM appoint WHERE ap_id = 6";
     $result = $connect->query($sql);
-    function date_diff($create_date, $ap_data)
-    {   
 
-        $str_start = strtotime($create_date); // ทำวันที่ให้อยู่ในรูปแบบ timestamp
-        $str_end = strtotime($ap_data); // ทำวันที่ให้อยู่ในรูปแบบ timestamp
+    while($row = $result->fetch_assoc()): 
+        $create_date = $row['create_date'];
+        $ap_data = $row['ap_data'];
+    endwhile;
 
-        $nseconds = $ap_data - $create_date; // วันที่ระหว่างเริ่มและสิ้นสุดมาลบกัน
-        $ndays = round($nseconds / 86400); // หนึ่งวันมี 86400 วินาที
+    $str_start = strtotime($create_date); // ทำวันที่ให้อยู่ในรูปแบบ timestamp
+    $str_end = strtotime($ap_data); // ทำวันที่ให้อยู่ในรูปแบบ timestamp
 
-        return $ndays;
-    }
+    $nseconds = $str_end - $str_start; // วันที่ระหว่างเริ่มและสิ้นสุดมาลบกัน
+    $ndays = round($nseconds / 86400); // หนึ่งวันมี 86400 วินาที
+
+    echo $ndays;
 ?>
 
     

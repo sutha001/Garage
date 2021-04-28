@@ -5,12 +5,13 @@
 $cus_car_id = mysqli_real_escape_string($connect, $_GET['cus_car_id']);
 
 $sql = "SELECT * 
-FROM customer,customer_car
-WHERE cus_car_id='$cus_car_id' ";
+FROM customer
+NATURAL JOIN customer_car
+WHERE cus_car_id='$cus_car_id'";
 
 $result = $connect->query($sql);
 
-$row = mysqli_fetch_array($result);
+$row = mysqli_fetch_array($result) or die(mysqli_error($connect).":".$sql);
 extract($row);
 
 ?>
@@ -42,15 +43,15 @@ extract($row);
         <div class="row">
         <div class="col-4 d-flex ">
             <label class = 'col-4'>เลขทะเบียนรถยนต์</label>
-            <input class = 'col-6' type="text" name="vrnumber" value="<?= $cus_car_id; ?>"><br>
+            <input class = 'col-6' type="text" name="vrnumber" readonly value="<?= $cus_car_id; ?>"><br>
             </div>
             </div>
         <div class="row">
         <div class="col-4 d-flex ">
             <label class = 'col-4'>ชือ-นามสกุล</label>
-            <input class = 'col-6' type="text" name="name" value="<?= $cus_name; ?>"><br
+            <input class = 'col-6' type="text" name="name" value="<?= $cus_name; ?>"><br>
             </div>
-            </div>>
+            </div>
         <div class="row">
         <div class="col-4 d-flex ">
             <label class = 'col-4'>เบอร์โทรศัพท์</label>

@@ -13,19 +13,17 @@
 
     $sql = "UPDATE customer,customer_car 
     SET  
-    customer.cus_car_id='$car_id',
-    customer.cus_name='$name' , 
+    customer.cus_name='$name', 
     customer.cus_phonenumber='$phone_number',
     customer_car.type_car='$type_car',
     customer_car.model_car='$model_car',
     customer_car.vin_car='$vin_car',
     customer_car.brand_car='$brand_car',
-    customer_car.engine_car='$engine_car',
-    customer_car.customer_cus_car_id = '$car_id'
+    customer_car.engine_car='$engine_car'
     
-    WHERE customer_car.car_id = '$id'";
+    WHERE customer_car.car_id = '$id' AND customer.cus_car_id = '$car_id'";
 
-    $result = $connect->query($sql);
+    $result = $connect->query($sql)or die(mysqli_error($connect).":".$sql);;
     if ($result) {
         echo "<script type='text/javascript'>";
         echo "alert('Update Succesfuly');";

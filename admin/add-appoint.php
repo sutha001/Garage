@@ -36,7 +36,7 @@
 
         $sql = "SELECT * FROM customer 
         JOIN customer_car 
-        ON customer.cus_car_id = customer_car.customer_cus_car_id";
+        ON customer.cus_car_id = customer_car.cus_car_id";
         $result = $connect->query($sql);
         $total = mysqli_num_rows($result);
         ?>

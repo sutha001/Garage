@@ -36,7 +36,7 @@
                         <td><?php echo $row['spares_type']; ?></td>
                         <td><?php echo $row['spares_model']; ?></td>
                         <td><?php echo $row['spares_details']; ?></td>
-                        <td><?php echo $row['rate']; ?></td>
+                        <td><?php echo $row['stock']; ?></td>
                         <td><?php echo $row['spares_price']; ?></td>
 
                         <td><a href='../process/spares-update.php?Spares_id=<?php echo $row['Spares_id']; ?>'>แก้ไข</a></td>

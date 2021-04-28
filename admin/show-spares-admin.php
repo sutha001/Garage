@@ -27,8 +27,15 @@
             </div>
         </div>
         <?php
+        if (!isset($start)) {
+            $start = 0;
+        }
+        $limit = '10';
+
+        
         $sql = "SELECT * FROM spares";
         $result = $connect->query($sql);
+        $total = mysqli_num_rows($result);
         ?>
         <div class="other_editor">
             <div class="container">
@@ -54,7 +61,7 @@
                                     <td><?php echo $row['spares_type']; ?></td>
                                     <td><?php echo $row['spares_model']; ?></td>
                                     <td><?php echo $row['spares_details']; ?></td>
-                                    <td><?php echo $row['rate']; ?></td>
+                                    <td><?php echo $row['stock']; ?></td>
                                     <td><?php echo $row['spares_price']; ?></td>
 
                                     <td><a href='../process/spares-update.php?Spares_id=<?php echo $row['Spares_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">แก้ไข</a></td>
@@ -63,6 +70,22 @@
                             <?php endwhile ?>
                         </tbody>
                     </table>
+
+                    <?php 
+                        $page = ceil($total/$limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
+                        /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
+                        for($i=1;$i<=$page;$i++){ 
+                                if($page == $i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
+                                    echo "หน้า &nbsp";
+                                    echo "<a href='?start=" .$limit*($i-1)."&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
+                                }
+                            else{
+                                    echo "หน้า &nbsp";
+                                    echo "<a href='?start=".$limit*($i-1)."&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+                                }
+                            }
+                    ?>
+
                 </div>
             </div>
         </div>

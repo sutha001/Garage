@@ -1,0 +1,10 @@
+.allfrom {
+    margin: 5% auto 0%;
+    width: 60%;
+    border: 2px solid black;
+}
+
+.row {
+    margin: 1% auto 0% !important;
+    justify-content: center;
+}

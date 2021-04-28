@@ -28,10 +28,21 @@
         </div>
 
         <?php
+
+        if (!isset($start)) {
+            $start = 0;
+        }
+        $limit = '10';
+
+
+
+
         $sql = "SELECT * FROM customer 
         JOIN customer_car 
         ON customer.cus_car_id = customer_car.customer_cus_car_id";
         $result = $connect->query($sql);
+
+        $total = mysqli_num_rows($result);
         ?>
 
         <div class="other_editor">
@@ -67,12 +78,28 @@
                                     <td><?php echo $row['brand_car']; ?></td>
                                     <td><?php echo $row['engine_car']; ?></td>
 
-                                    <td width="5%"><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;" >แก้ไข</a></td>
+                                    <td width="5%"><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">แก้ไข</a></td>
                                     <td width="5%"><a href='../process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' onclick="return confirm('Do you want to delete this record? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;">ลบ</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>
                     </table>
+                    <?php 
+
+                        $page = ceil($total/$limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
+
+                        /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
+                        for($i=1;$i<=$page;$i++){ 
+                                if($page == $i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
+                                    echo "หน้า &nbsp";
+                                    echo "<a href='?start=" .$limit*($i-1)."&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
+                                }
+                            else{
+                                    echo "หน้า &nbsp";
+                                    echo "<a href='?start=".$limit*($i-1)."&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+                                }
+                            }
+                    ?>
                 </div>
             </div>
         </div>

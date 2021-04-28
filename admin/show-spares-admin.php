@@ -50,7 +50,7 @@
                                 <th width="25%">หมวดอะไหล่</th>
                                 <th width="10%">model</th>
                                 <th width="25%">รายละเอียด</th>
-                                <th width="5%">เรท</th>
+                                <th width="5%">Stock</th>
                                 <th width="10%">ราคา</th>
                             </tr>
                         </thead>

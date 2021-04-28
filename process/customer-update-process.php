@@ -26,7 +26,7 @@
     $result = $connect->query($sql)or die(mysqli_error($connect).":".$sql);;
     if ($result) {
         echo "<script type='text/javascript'>";
-        echo "alert('Update Succesfuly');";
+        echo "alert('แก้ไขข้อมูลสำเร็จ');";
         echo "window.location = '../admin/show-infocustomer-admin.php'; ";
         echo "</script>";
     } else {

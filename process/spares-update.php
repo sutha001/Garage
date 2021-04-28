@@ -88,8 +88,10 @@ extract($row);
             </div>
         <div class="row">
         <div class="col-4 d-flex ">
-        <label class = 'col-4' >เรท</label>
-        <input class = 'col-6' type="text" name="rate_spare" value="<?= $stock; ?>"><br>
+
+        <label class = 'col-4' >Stock</label>
+        <input class = 'col-6' type="number" name="stock" value="<?= $stock; ?>"><br>
+
         </div>
             </div>
         <div class="row">

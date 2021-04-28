@@ -3,12 +3,11 @@
 $cus_car_id = isset($_GET['cus_car_id']) ? $_GET['cus_car_id'] : '';
 
 $sql = "DELETE customer , customer_car  FROM customer 
-JOIN customer_car
-ON customer_cus_car_id = cus_car_id
+NATURAL JOIN customer_car
 WHERE cus_car_id='$cus_car_id'";
 
 
-$result = $connect->query($sql);
+$result = $connect->query($sql) or die(mysqli_error($connect).":".$sql);
 
 
 

@@ -79,7 +79,7 @@
                                     <td><?php echo $row['engine_car']; ?></td>
 
                                     <td width="5%"><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">แก้ไข</a></td>
-                                    <td width="5%"><a href='../process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' onclick="return confirm('Do you want to delete this record? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;">ลบ</a></td>
+                                    <td width="5%"><a href='../process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' onclick="return confirm('ต้องการลบข้อมูลหรือไม่? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;">ลบ</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>

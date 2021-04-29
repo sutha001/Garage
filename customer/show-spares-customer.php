@@ -1,5 +1,9 @@
 <?php include '../process/connect.php'; 
 $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
+$type_car =mysqli_real_escape_string($connect, $_GET['type_car']);
+$type_spare = mysqli_real_escape_string($connect,$_GET['type_spare']);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +32,47 @@ $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
 
         </div>
         <?php
-        $sql = "SELECT * FROM spares";
+        $sql = "SELECT * FROM spares where spares_type like'$type_spare'  and spares_model like'$type_car'   ";
         $result = $connect->query($sql);
         ?>
         <div class="other_editor">
             <div class="container">
                 <h1>ข้อมูลราคาเมนูเรทราคาอะไหล่</h1>
+                <form action="../customer/show-spares-customer.php?cus_name=<?php echo $cus_name ?>" method="get">
+            <div class="row">
+                <div class="col-3">
+                    <label class="col-3" for="inputState" class="form-label">หมวด</label>
+                    <select  class="col-8" name="type_spare" class="form-select">
+                        <option value="%">ทั้งหมด</option>
+                        <option value="เครื่องยนต์">หมวดเครื่องยนต์</option>
+                        <option value="เชื้อเพลิง">หมวดเชื้อเพลิง</option>
+                        <option value="ส่งกำลัง">หมวดส่งกำลัง</option>
+                        <option value="เครื่องปรับอากาศ">หมวดเครื่องปรับอากาศ</option>
+                        <option value="ตัวถังภายนอก">หมวดตัวถังภายนอก</option>
+                        <option value="ไฟฟ้า">หมวดไฟฟ้า</option>
+                        <option value="ทั่วไป">หมวดทั่วไป</option>
+                    </select>
+                </div>
+            
+                <div class="col-3">
+                    <label class="col-4" for="inputState" class="form-label">ประเภทรถยนต์</label>
+                    <select  class="col-7" name="type_car" class="form-select">
+                        <option value="%">ทั้งหมด</option>
+                        <option value="รถเก๋ง">รถเก๋ง</option>
+                        <option value="รถตู้">รถตู้</option>
+                        <option value="รถกระบะ">รถกระบะ</option>
+                    </select>
+                </div>
+                <div class="col-1" >
+                    <select   name="cus_name" class="form-select " style="visibility: hidden;">
+                        <option value="<?php echo $cus_name ?>"></option>
+                    </select>
+                </div>
+                <div class="col-2">
+                <input  type="submit" value="ค้นหา" class="btn btn-dark col-8">
+                </div>
+            </div>
+            </form>
                 <table>
                     <thead>
                         <tr>

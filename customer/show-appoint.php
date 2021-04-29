@@ -1,5 +1,6 @@
 <?php include '../process/connect.php'; 
 $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
+$string = "_%" ;
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@ $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
             <a href="show-appoint.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลการนัดหมาย</a>
         </div>
         <div class="row_edit">
-            <a href="show-spares-customer.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
+            <a href="show-spares-customer.php?&cus_name=<?php echo $cus_name ?>&type_car=<?php echo "%25" ?>&type_spare=<?php echo "%25" ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
         </div>
 
     </div>

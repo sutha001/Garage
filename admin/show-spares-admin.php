@@ -1,4 +1,12 @@
-<?php include '../process/connect.php'; ?>
+<?php include '../process/connect.php';
+
+
+$type_car = $_GET['type_car'] ?? "%";
+$type_spare = $_GET['type_spare'] ?? "%";
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +46,8 @@
         }
         $limit = '10';
 
-        
-        $sql = "SELECT * FROM spares";
+
+        $sql = "SELECT * FROM spares where spares_type like'$type_spare'  and spares_model like'$type_car' ";
         $result = $connect->query($sql);
         $total = mysqli_num_rows($result);
         ?>
@@ -47,7 +55,41 @@
             <div class="container">
                 <div class="info_right">
                     <h1>ข้อมูลราคาเมนูเรทราคาอะไหล่</h1>
-                    <a href="addspares.php" class="btn btn-dark" style="background-color: #4d4d4d;">เพิ่ม</a>
+
+                  
+                        
+                        <form action="../admin/show-spares-admin.php?" method="get">
+                        <div class="row d-flex flex-row">
+                        <a href="addspares.php" class="btn btn-dark col-1" style="background-color: #4d4d4d;">เพิ่ม</a>
+                            <div class="col-3">
+                                <label class="col-3" for="inputState" class="form-label">หมวด</label>
+                                <select class="col-8" name="type_spare" class="form-select">
+                                    <option value="%">ทั้งหมด</option>
+                                    <option value="เครื่องยนต์">หมวดเครื่องยนต์</option>
+                                    <option value="เชื้อเพลิง">หมวดเชื้อเพลิง</option>
+                                    <option value="ส่งกำลัง">หมวดส่งกำลัง</option>
+                                    <option value="เครื่องปรับอากาศ">หมวดเครื่องปรับอากาศ</option>
+                                    <option value="ตัวถังภายนอก">หมวดตัวถังภายนอก</option>
+                                    <option value="ไฟฟ้า">หมวดไฟฟ้า</option>
+                                    <option value="ทั่วไป">หมวดทั่วไป</option>
+                                </select>
+                            </div>
+
+                            <div class="col-3">
+                                <label class="col-4" for="inputState" class="form-label">ประเภทรถยนต์</label>
+                                <select class="col-7" name="type_car" class="form-select">
+                                    <option value="%">ทั้งหมด</option>
+                                    <option value="รถเก๋ง">รถเก๋ง</option>
+                                    <option value="รถตู้">รถตู้</option>
+                                    <option value="รถกระบะ">รถกระบะ</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-2">
+                                <input type="submit" value="ค้นหา" class="btn btn-dark col-8">
+                            </div>
+                    </div>
+                    </form>
                     <hr>
                     <table>
                         <thead>
@@ -71,25 +113,24 @@
                                     <td><?php echo $row['spares_price']; ?></td>
 
                                     <td><a href='../process/spares-update.php?Spares_id=<?php echo $row['Spares_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">แก้ไข</a></td>
-                                    <td><a href='../process/spares-delete.php?Spares_id=<?php echo $row['Spares_id']; ?>' onclick="return confirm('Do you want to delete this record? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;" >ลบ</a></td>
+                                    <td><a href='../process/spares-delete.php?Spares_id=<?php echo $row['Spares_id']; ?>' onclick="return confirm('Do you want to delete this record? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;">ลบ</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>
                     </table>
 
-                    <?php 
-                        $page = ceil($total/$limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
-                        /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
-                        for($i=1;$i<=$page;$i++){ 
-                                if($page == $i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
-                                    echo "หน้า &nbsp";
-                                    echo "<a href='?start=" .$limit*($i-1)."&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
-                                }
-                            else{
-                                    echo "หน้า &nbsp";
-                                    echo "<a href='?start=".$limit*($i-1)."&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
-                                }
-                            }
+                    <?php
+                    $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
+                    /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
+                    for ($i = 1; $i <= $page; $i++) {
+                        if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
+                            echo "หน้า &nbsp";
+                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
+                        } else {
+                            echo "หน้า &nbsp";
+                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+                        }
+                    }
                     ?>
 
                 </div>

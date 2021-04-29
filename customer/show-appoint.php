@@ -91,10 +91,10 @@ $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
                     for ($i = 1; $i <= $page; $i++) {
                         if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
                             echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
+                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i&cus_name=$cus_name'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
                         } else {
                             echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i&cus_name=$cus_name'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
                         }
                     }
                     ?>

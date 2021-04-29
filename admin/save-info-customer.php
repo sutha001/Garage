@@ -1,20 +1,4 @@
-<?php include '../process/connect.php';
-
-$vrnumber = $_POST['vrnumber'] ?? "%";
-$vrnumber == '' ? $vrnumber = "%": $vrnumber = $vrnumber;
-$name = $_POST['name'] ?? "%";
-$name == '' ? $name = "%": $name = $name;
-$phone_number = $_POST['phone_number'] ?? "%";
-$phone_number == '' ? $phone_number = "%": $phone_number = $phone_number;
-$model_car = $_POST['model_car'] ??"%";
-$model_car == '' ? $model_car = "%": $model_car = $model_car;
-$brand_car = $_POST['brand_car'] ?? "%";
-$brand_car == '' ? $brand_car = "%": $brand_car = $brand_car;
-$type_car = $_POST['type_car'] ?? "%";
-$type_car == '' ? $type_car = "%": $type_car = $type_car;
-
-
-?>
+<?php include '../process/connect.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,13 +17,13 @@ $type_car == '' ? $type_car = "%": $type_car = $type_car;
     <div class="area_all" style="background-color: black;">
         <div class="menu_editor">
             <div class="row_edit">
-                <a class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลลูกค้า</a>
+                <a href="show-infocustomer-admin.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลลูกค้า</a>
             </div>
             <div class="row_edit">
                 <a href="show-spares-admin.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
             </div>
             <div class="row_edit">
-                <a href="save-info-customer.php" class="btn btn-dark" style="background-color: #4f4f4f;">บันทึกข้อมูลการซ่อม</a>
+                <a  class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">บันทึกข้อมูลการซ่อม</a>
             </div>
             <div class="row_edit">
                 <a href="add-appoint.php" class="btn btn-dark" style="background-color: #4f4f4f;">นัดหมาย</a>
@@ -60,9 +44,11 @@ $type_car == '' ? $type_car = "%": $type_car = $type_car;
         $limit = '10';
 
 
+
+
         $sql = "SELECT *
         FROM customer
-        NATURAL JOIN customer_car where  type_car like '$type_car' and brand_car  like  '$brand_car'  and model_car  like '$model_car' and vin_car like  '$vrnumber' and cus_name like '$name' and cus_phonenumber like '$phone_number'";
+        NATURAL JOIN customer_car";
 
         $result = $connect->query($sql) or die(mysqli_error($connect) . ":" . $sql);
 
@@ -72,45 +58,7 @@ $type_car == '' ? $type_car = "%": $type_car = $type_car;
         <div class="other_editor">
             <div class="container">
                 <div class="info_right">
-                    <h1>ข้อมูลลูกค้า</h1>
-
-
-                    <form action="../admin/show-infocustomer-admin.php?" method="post">
-                        <div class="row">
-                            
-                            <div class="col-1">
-                            <a href="addcustomer.php" class="btn btn-dark" style="background-color: #4d4d4d;">เพิ่ม</a>
-                            </div>
-                            <div class="col-2">
-                                <input type="text" name="vrnumber" class="form-control" placeholder="เลขทะเบียนรถยนต์" aria-label="เลขทะเบียนรถยนต์">
-                            </div>
-                            <div class="col-2">
-                                <input type="text" name="name" class="form-control" placeholder="ชื่อ-นามสกุล" aria-label="ชื่อ-นามสกุล">
-                            </div>
-                            <div class="col-1">
-                                <input type="text" name="phone_number" class="form-control" placeholder="เบอร์โทรศัพท์" aria-label="เบอร์โทรศัพท์">
-                            </div>
-                            <div class="col-1">
-                                
-                                <select name="type_car" class="form-select ">
-                                    <option value="%">ทั้งหมด</option>
-                                    <option value="รถเก๋ง">รถเก๋ง</option>
-                                    <option value="รถตู้">รถตู้</option>
-                                    <option value="รถกระบะ">รถกระบะ</option>
-                                </select>
-                                
-                            </div>
-                            <div class="col-1">
-                                <input type="text" name="model_car" class="form-control" placeholder="รุ่นรถยนต์" aria-label="รุ่นรถยนต์">
-                            </div>
-                            <div class="col-2">
-                                <input type="text" name="brand_car" class="form-control" placeholder="ยี่ห้อรถยนต์" aria-label="ยี่ห้อรถยนต์">
-                            </div>
-                            <div class="col-1">
-                            <input type="submit" value="ค้นหา" class="btn btn-dark" style="margin:1% auto 1% ">
-                            </div>
-                        </div>
-                    </form>
+                    <h1>บันทึกข้อมูลการซ่อม</h1>
                     <hr>
                     <table>
                         <thead>
@@ -139,8 +87,7 @@ $type_car == '' ? $type_car = "%": $type_car = $type_car;
                                     <td><?php echo $row['brand_car']; ?></td>
                                     <td><?php echo $row['engine_car']; ?></td>
 
-                                    <td width="5%"><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">แก้ไข</a></td>
-                                    <td width="5%"><a href='../process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' onclick="return confirm('ต้องการลบข้อมูลหรือไม่? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;">ลบ</a></td>
+                                    <td width="5%"><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">บันทึก</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>

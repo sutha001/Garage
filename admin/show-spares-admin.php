@@ -31,6 +31,9 @@ $type_spare = $_GET['type_spare'] ?? "%";
                 <a class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลอะไหล่</a>
             </div>
             <div class="row_edit">
+                <a href="save-info-customer.php" class="btn btn-dark" style="background-color: #4f4f4f;">บันทึกข้อมูลการซ่อม</a>
+            </div>
+            <div class="row_edit">
                 <a href="add-appoint.php" class="btn btn-dark" style="background-color: #4f4f4f;">นัดหมาย</a>
             </div>
             <div class="row_edit">
@@ -118,7 +121,7 @@ $type_spare = $_GET['type_spare'] ?? "%";
                             <?php endwhile ?>
                         </tbody>
                     </table>
-
+                    <hr>
                     <?php
                     $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
                     /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */

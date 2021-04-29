@@ -23,6 +23,9 @@
                 <a href="show-spares-admin.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
             </div>
             <div class="row_edit">
+                <a href="save-info-customer.php" class="btn btn-dark" style="background-color: #4f4f4f;">บันทึกข้อมูลการซ่อม</a>
+            </div>
+            <div class="row_edit">
                 <a href="add-appoint.php" class="btn btn-dark" style="background-color: #4f4f4f;">นัดหมาย</a>
             </div>
             <div class="row_edit">
@@ -78,6 +81,7 @@
                             <?php endwhile ?>
                         </tbody>
                     </table>
+                    <hr>
                     <?php 
 
                         $page = ceil($total/$limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า

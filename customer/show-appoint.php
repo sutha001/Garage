@@ -27,42 +27,80 @@ $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
         </div>
 
     </div>
+
+    
     <?php
-    $sql = "SELECT * FROM appoint a  join customer_car c on a.cus_car_id = c.car_id join customer cu on cu.cus_car_id  = c.cus_car_id where  cu.cus_name='$cus_name'";
+    if (!isset($start)) {
+        $start = 0;
+    }
+    $limit = '10';
+
+    $sql = "SELECT * 
+    FROM appoint
+    NATURAL JOIN customer
+    WHERE cus_name = '$cus_name'";
     $result = $connect->query($sql);echo $cus_name;
+    $total = mysqli_num_rows($result);
     ?>
 
-    <div class="other_editor">
-        <div class="container">
-            <h1>ข้อมูลการนัดหมาย</h1>
-            <table>
-                <thead>
-                    <tr>
-                    
-                        <td width="5%">รหัสนัดหมาย </td>
-                        <td width="25%">วันที่นัดหมาย</td>
-                        <td width="10%">เวลานัดหมาย</td>
-                        <td width="25%">เวลาสร้างนัดหมาย</td>
-                        <td width="5%">ป้ายทะเบียนรถ</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_assoc()) : ?>
-                        <tr>
-                            <td><?php echo $row['ap_id']; ?></td>
-                            <td><?php echo $row['ap_data']; ?></td>
-                            <td><?php echo $row['ap_time']; ?></td>
-                            <td><?php echo $row['create_date']; ?></td>
-                            <td><?php echo $row['cus_car_id']; ?></td>
+<div class="other_editor">
+            <div class="container">
+                <div class="info_right">
+                    <h1>แจ้งเตือน</h1>
+                    <hr>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="15%">เลขทะเบียนรถ</th>
+                                <th width="10%">ชื่อลูกค้า</th>
+                                <th width="15%">เบอร์โทรศัพท์</th>
+                                <th width="10%">วันที่</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()) : ?>
+                                <tr>
+                                    <td><?php echo $row['cus_car_id']; ?></td>
+                                    <td><?php echo $row['cus_name']; ?></td>
+                                    <td><?php echo $row['cus_phonenumber']; ?></td>
+                                    <td><?php echo $row['ap_data']; ?></td>
+
+                                    <td width="10%"><?php 
+                                    $creat_data = date('Y-m-d');
+                                    $ap_data = $row['ap_data'];
 
 
-                        </tr>
-                    <?php endwhile ?>
-                </tbody>
-            </table>
+                                    $calculate =strtotime("$ap_data")-strtotime("$creat_data");
+                                    $summary=floor($calculate / 86400); // 86400 มาจาก 24*360 (1วัน = 24 ชม.)
 
+                                    if($summary <= 3 && $summary > 0){
+                                        echo "ใกล้ครบวันกำหนดการ";
+                                    }
+                                    if($summary == 0){
+                                        echo "วันนี้ครบกำหนดการ";
+                                    }?></td>
+                                </tr>
+                            <?php endwhile ?>
+                        </tbody>
+                    </table>
+                    <?php
+
+                    $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
+
+                    /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
+                    for ($i = 1; $i <= $page; $i++) {
+                        if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
+                            echo "หน้า &nbsp";
+                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
+                        } else {
+                            echo "หน้า &nbsp";
+                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
-    </div>
 
     </div>
 </body>

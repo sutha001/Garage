@@ -1,4 +1,6 @@
-<?php include '../process/connect.php'; ?>
+<?php include '../process/connect.php'; 
+$cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,19 +16,20 @@
 
 </head>
 
-<body> <div class="area_all" style="background-color: black;">
+<body>
+    <div class="area_all" style="background-color: black;">
     <div class="menu_editor">
         <div class="row_edit">
-            <a href="show-appoint.php" class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลการนัดหมาย</a>
+            <a href="show-appoint.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลการนัดหมาย</a>
         </div>
         <div class="row_edit">
-            <a href="show-spares-customer.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
+            <a href="show-spares-customer.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
         </div>
 
-    </div>>
+    </div>
     <?php
-    $sql = "SELECT * FROM appoint";
-    $result = $connect->query($sql);
+    $sql = "SELECT * FROM appoint a  join customer_car c on a.cus_car_id = c.car_id join customer cu on cu.cus_car_id  = c.cus_car_id where  cu.cus_name='$cus_name'";
+    $result = $connect->query($sql);echo $cus_name;
     ?>
 
     <div class="other_editor">
@@ -35,7 +38,8 @@
             <table>
                 <thead>
                     <tr>
-                        <td width="5%">รหัสนัดหมาย</td>
+                    
+                        <td width="5%">รหัสนัดหมาย </td>
                         <td width="25%">วันที่นัดหมาย</td>
                         <td width="10%">เวลานัดหมาย</td>
                         <td width="25%">เวลาสร้างนัดหมาย</td>

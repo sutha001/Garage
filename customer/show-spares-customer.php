@@ -1,4 +1,6 @@
-<?php include '../process/connect.php'; ?>
+<?php include '../process/connect.php'; 
+$cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +20,10 @@
     <div class="area_all" style="background-color: black;">
         <div class="menu_editor">
             <div class="row_edit">
-                <a href="show-appoint.php" class="btn btn-dark" style="background-color:  #4f4f4f; ">ข้อมูลการนัดหมาย</a>
+                <a href="show-appoint.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color:  #4f4f4f; ">ข้อมูลการนัดหมาย</a>
             </div>
             <div class="row_edit">
-                <a href="show-spares-customer.php" class="btn btn-dark" style="background-color: #ffffff;color:#1b221b;">ข้อมูลอะไหล่</a>
+                <a href="show-spares-customer.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #ffffff;color:#1b221b;">ข้อมูลอะไหล่</a>
             </div>
 
         </div>

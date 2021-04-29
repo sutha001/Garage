@@ -17,7 +17,7 @@
     <div class="area_all" style="background-color: black;">
         <div class="menu_editor">
             <div class="row_edit">
-                <a class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลลูกค้า</a>
+                <a href="show-infocustomer-admin.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลลูกค้า</a>
             </div>
             <div class="row_edit">
                 <a href="show-spares-admin.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
@@ -29,7 +29,7 @@
                 <a href="show-info-employee.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลพนักงาน</a>
             </div>
             <div class="row_edit">
-                <a href="show-alert.php" class="btn btn-dark" style="background-color: #4f4f4f;">แจ้งเตือน</a>
+                <a class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">แจ้งเตือน</a>
             </div>
         </div>
 
@@ -44,8 +44,10 @@
 
 
         $sql = "SELECT *
-        FROM customer
-        NATURAL JOIN customer_car";
+        FROM appoint
+        NATURAL JOIN customer
+        ";
+
 
         $result = $connect->query($sql) or die(mysqli_error($connect) . ":" . $sql);
 
@@ -55,38 +57,39 @@
         <div class="other_editor">
             <div class="container">
                 <div class="info_right">
-                    <h1>ข้อมูลลูกค้า</h1>
-                    <a href="addcustomer.php" class="btn btn-dark" style="background-color: #4d4d4d;">เพิ่ม</a>
+                    <h1>แจ้งเตือน</h1>
                     <hr>
                     <table>
                         <thead>
                             <tr>
-                                <th width="5%">ID</th>
-                                <th width="10%">เลขทะเบียนรถ</th>
-                                <th width="10%">ชื่อ-นามสกุล</th>
-                                <th width="10%">เบอร์โทรศัพท์</th>
-                                <th width="10%">ประเภทรถยนต์</th>
-                                <th width="10%">รุ่นรถยนต์</th>
-                                <th width="10%">เลขตัวถัง</th>
-                                <th width="10%">ยี่ห้อรถยนต์</th>
-                                <th width="10%">เลขเครื่องยนต์</th>
+                                <th width="15%">เลขทะเบียนรถ</th>
+                                <th width="10%">ชื่อลูกค้า</th>
+                                <th width="15%">เบอร์โทรศัพท์</th>
+                                <th width="10%">วันที่</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()) : ?>
                                 <tr>
-                                    <td><?php echo $row['car_id']; ?></td>
                                     <td><?php echo $row['cus_car_id']; ?></td>
                                     <td><?php echo $row['cus_name']; ?></td>
                                     <td><?php echo $row['cus_phonenumber']; ?></td>
-                                    <td><?php echo $row['type_car']; ?></td>
-                                    <td><?php echo $row['model_car']; ?></td>
-                                    <td><?php echo $row['vin_car']; ?></td>
-                                    <td><?php echo $row['brand_car']; ?></td>
-                                    <td><?php echo $row['engine_car']; ?></td>
+                                    <td><?php echo $row['ap_data']; ?></td>
 
-                                    <td width="5%"><a href='../process/customer-update.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">แก้ไข</a></td>
-                                    <td width="5%"><a href='../process/customer-delete.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' onclick="return confirm('ต้องการลบข้อมูลหรือไม่? !!!')" class="btn btn-dark" style="background-color: #4d4d4d;">ลบ</a></td>
+                                    <td width="10%"><?php 
+                                    $creat_data = date('Y-m-d');
+                                    $ap_data = $row['ap_data'];
+
+
+                                    $calculate =strtotime("$ap_data")-strtotime("$creat_data");
+                                    $summary=floor($calculate / 86400); // 86400 มาจาก 24*360 (1วัน = 24 ชม.)
+
+                                    if($summary <= 3 && $summary > 0){
+                                        echo "ใกล้ครบวันกำหนดการ";
+                                    }
+                                    if($summary == 0){
+                                        echo "วันนี้ครบกำหนดการ";
+                                    }?></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>

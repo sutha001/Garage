@@ -12,5 +12,6 @@
     VALUES ('$ap_data','$ap_time','$create_date','$car_id')");
 
     echo '<script>alert("เพิ่มวันนัดหมายสำเร็จ")</script>';
+    header('Refresh: 1; url=../admin/add-appoint.php');
 
 ?>

@@ -14,7 +14,7 @@
     mysqli_query($connect, "INSERT INTO customer (cus_car_id, cus_name, cus_phonenumber)
     VALUES ('$car_id','$name','$phone_number')");
 
-    mysqli_query($connect, "INSERT INTO customer_car (type_car, model_car, vin_car, brand_car, engine_car, customer_cus_car_id)
+    mysqli_query($connect, "INSERT INTO customer_car (type_car, model_car, vin_car, brand_car, engine_car, cus_car_id)
     VALUES ('$type_car','$model_car', '$vin_car','$brand_car','$engine_car', '$car_id')");
 
     echo '<script>alert("เพิ่มข้อมูลลูกค้าสำเร็จสำเร็จ")</script>';

@@ -4,11 +4,14 @@
 <html lang="en">
 
 <?php
-$car_id = mysqli_real_escape_string($connect, $_GET['car_id']);
+$cus_car_id = mysqli_real_escape_string($connect, $_GET['cus_car_id']);
+
 
 $sql = "SELECT * 
-    FROM customer,customer_car
-    WHERE car_id='$car_id' ";
+    FROM customer,
+    NATURAL JOIN customer_car
+    WHERE cus_car_id='$cus_car_id' ";
+
 $result = $connect->query($sql);
 
 ?>
@@ -24,6 +27,7 @@ $result = $connect->query($sql);
 </head>
 
 <body>
+
     <div class='allfrom'>
         <h1>Add Appoint</h1>
         <hr>
@@ -49,7 +53,7 @@ $result = $connect->query($sql);
             <div class="row">
                 <div class="col-4 d-flex ">
                     <label class='col-4' >เลขทะเบียนรถ</label>
-                    <input class='col-6' type="text" name="customer_car_id" value="<?= $car_id; ?>" readonly><br>
+                    <input class='col-6' type="text" name="customer_car_id" value="<?= $cus_car_id ?>" readonly><br>
                 </div>
             </div>
             <hr>

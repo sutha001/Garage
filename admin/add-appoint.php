@@ -25,6 +25,12 @@
             <div class="row_edit">
                 <a class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">นัดหมาย</a>
             </div>
+            <div class="row_edit">
+                <a href="show-info-employee.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลพนักงาน</a>
+            </div>
+            <div class="row_edit">
+                <a href="show-alert.php" class="btn btn-dark" style="background-color: #4f4f4f;">แจ้งเตือน</a>
+            </div>
         </div>
         <?php
         if (!isset($start)) {
@@ -73,7 +79,7 @@
                                     <td><?php echo $row['brand_car']; ?></td>
                                     <td><?php echo $row['engine_car']; ?></td>
 
-                                    <td width="5%"><a href='appoint.php?car_id=<?php echo $row['car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">นัด</a></td>
+                                    <td width="5%"><a href='appoint.php?cus_car_id=<?php echo $row['cus_car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">นัด</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>

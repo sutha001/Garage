@@ -23,7 +23,7 @@
                 <a href="show-spares-admin.php" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
             </div>
             <div class="row_edit">
-                <a  class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">บันทึกข้อมูลการซ่อม</a>
+                <a class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">บันทึกข้อมูลการซ่อม</a>
             </div>
             <div class="row_edit">
                 <a href="add-appoint.php" class="btn btn-dark" style="background-color: #4f4f4f;">นัดหมาย</a>
@@ -38,17 +38,22 @@
 
         <?php
 
-        if (!isset($start)) {
-            $start = 0;
+        $perpage = 5;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
         }
-        $limit = '10';
+
+
+        $start = ($page - 1) * $perpage;
 
 
 
 
         $sql = "SELECT *
         FROM customer
-        NATURAL JOIN customer_car";
+        NATURAL JOIN customer_car limit {$start} , {$perpage}";
 
         $result = $connect->query($sql) or die(mysqli_error($connect) . ":" . $sql);
 
@@ -94,20 +99,28 @@
                     </table>
                     <hr>
                     <?php
-
-                    $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
-
-                    /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
-                    for ($i = 1; $i <= $page; $i++) {
-                        if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
-                        } else {
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
-                        }
-                    }
+                    $sql2 = "select * from customer ";
+                    $query2 = mysqli_query($connect, $sql2);
+                    $total_record = mysqli_num_rows($query2);
+                    $total_page = ceil($total_record / $perpage);
                     ?>
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a class="btn btn-dark" style="background-color: #4d4d4d;" href="save-info-customer.php" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                                <li><a class="btn btn-dark" style="background-color: #4d4d4d;" href="save-info-customer.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php } ?>
+                            <li>
+                                <a class="btn btn-dark" style="background-color: #4d4d4d;" href="save-info-customer.php?page=<?php echo $total_page; ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

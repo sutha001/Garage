@@ -44,24 +44,29 @@ $type_spare = $_GET['type_spare'] ?? "%";
             </div>
         </div>
         <?php
-        if (!isset($start)) {
-            $start = 0;
+        $perpage = 5;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
         }
-        $limit = '10';
 
 
-        $sql = "SELECT * FROM spares where spares_type like'$type_spare'  and spares_model like'$type_car' ";
+        $start = ($page - 1) * $perpage;
+
+        $sql = "SELECT * FROM spares where spares_type like'$type_spare'  OR spares_model like'$type_car' limit {$start} , {$perpage}";
         $result = $connect->query($sql);
         $total = mysqli_num_rows($result);
+
         ?>
         <div class="other_editor">
             <div class="container">
                 <div class="info_right">
                     <h1>ข้อมูลราคาเมนูเรทราคาอะไหล่</h1>
-                        
-                        <form action="../admin/show-spares-admin.php?" method="get">
+
+                    <form action="../admin/show-spares-admin.php?" method="get">
                         <div class="row d-flex flex-row">
-                        <a href="addspares.php" class="btn btn-dark col-1" style="background-color: #4d4d4d;">เพิ่ม</a>
+                            <a href="addspares.php" class="btn btn-dark col-1" style="background-color: #4d4d4d;">เพิ่ม</a>
                             <div class="col-3">
                                 <label class="col-3" for="inputState" class="form-label">หมวด</label>
                                 <select class="col-8" name="type_spare" class="form-select">
@@ -85,18 +90,19 @@ $type_spare = $_GET['type_spare'] ?? "%";
                                     <option value="รถกระบะ">รถกระบะ</option>
                                 </select>
                             </div>
-                            
+
                             <div class="col-2">
                                 <input type="submit" value="ค้นหา" class="btn btn-dark col-8">
                             </div>
-                    </div>
+                        </div>
                     </form>
                     <hr>
                     <table>
                         <thead>
                             <tr>
-                                <th width="5%">#</th>
-                                <th width="25%">หมวดอะไหล่</th>
+                                <th width="5%">ID</th>
+                                <th width="5%">ยี่ห้อรถยนต์</th>
+                                <th width="10%">หมวดอะไหล่</th>
                                 <th width="10%">model</th>
                                 <th width="25%">รายละเอียด</th>
                                 <th width="5%">Stock</th>
@@ -107,8 +113,9 @@ $type_spare = $_GET['type_spare'] ?? "%";
                             <?php while ($row = $result->fetch_assoc()) : ?>
                                 <tr>
                                     <td><?php echo $row['Spares_id']; ?></td>
-                                    <td><?php echo $row['spares_type']; ?></td>
                                     <td><?php echo $row['spares_model']; ?></td>
+                                    <td><?php echo $row['spares_group']; ?></td>
+                                    <td><?php echo $row['spares_type']; ?></td>
                                     <td><?php echo $row['spares_details']; ?></td>
                                     <td><?php echo $row['stock']; ?></td>
                                     <td><?php echo $row['spares_price']; ?></td>
@@ -121,18 +128,28 @@ $type_spare = $_GET['type_spare'] ?? "%";
                     </table>
                     <hr>
                     <?php
-                    $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
-                    /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
-                    for ($i = 1; $i <= $page; $i++) {
-                        if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
-                        } else {
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
-                        }
-                    }
+                    $sql2 = "select * from spares ";
+                    $query2 = mysqli_query($connect, $sql2);
+                    $total_record = mysqli_num_rows($query2);
+                    $total_page = ceil($total_record / $perpage);
                     ?>
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-admin.php" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                                <li><a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-admin.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <?php } ?>
+                            <li>
+                                <a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-admin.php?page=<?php echo $total_page; ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
 
                 </div>
             </div>

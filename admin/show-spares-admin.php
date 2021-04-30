@@ -44,7 +44,7 @@ $type_spare = $_GET['type_spare'] ?? "%";
             </div>
         </div>
         <?php
-        $perpage = 5;
+        $perpage = 10;
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
         } else {

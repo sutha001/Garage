@@ -14,7 +14,7 @@
     
     WHERE em_id = '$em_id'";
 
-    $result = $connect->query($sql)or die(mysqli_error($connect).":".$sql);;
+    $result = $connect->query($sql)or die(mysqli_error($connect).":".$sql);
     if ($result) {
         echo "<script type='text/javascript'>";
         echo "alert('แก้ไขข้อมูลสำเร็จ');";

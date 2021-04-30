@@ -1,4 +1,4 @@
-<?php include '../process/connect.php' ?>
+<?php include '../../process/connect.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style_all_editor.css">
+    <link rel="stylesheet" href="../style_all_editor.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <title>Editor</title>
@@ -43,14 +43,10 @@
         }
         $limit = '10';
 
+        $car_id = mysqli_real_escape_string($connect, $_GET['car_id']);
 
-
-
-        $sql = "SELECT *
-        FROM customer
-        NATURAL JOIN customer_car";
-
-        $result = $connect->query($sql) or die(mysqli_error($connect) . ":" . $sql);
+        $sql = "SELECT * FROM employees ";
+        $result = $connect->query($sql);
 
         $total = mysqli_num_rows($result);
         ?>
@@ -58,55 +54,46 @@
         <div class="other_editor">
             <div class="container">
                 <div class="info_right">
-                    <h1>บันทึกข้อมูลการซ่อม</h1>
+                    <h1>พนักงานที่รับผิดชอบ</h1>
                     <hr>
                     <table>
                         <thead>
                             <tr>
-                                <th width="5%">ID</th>
-                                <th width="10%">เลขทะเบียนรถ</th>
-                                <th width="10%">ชื่อ-นามสกุล</th>
-                                <th width="10%">เบอร์โทรศัพท์</th>
-                                <th width="10%">ประเภทรถยนต์</th>
-                                <th width="10%">รุ่นรถยนต์</th>
-                                <th width="10%">เลขตัวถัง</th>
-                                <th width="10%">ยี่ห้อรถยนต์</th>
-                                <th width="10%">เลขเครื่องยนต์</th>
+                                <th width="1%">รหัสพนักงาน</th>
+                                <th width="1%">ชื่อจริงพนักงาน</th>
+                                <th width="1%">เบอร์โทรศัพท์พนักงาน</th>
+                                <th width="1%">ตำแหน่งพนักงาน</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()) : ?>
                                 <tr>
-                                    <td><?php echo $row['car_id']; ?></td>
-                                    <td><?php echo $row['cus_car_id']; ?></td>
-                                    <td><?php echo $row['cus_name']; ?></td>
-                                    <td><?php echo $row['cus_phonenumber']; ?></td>
-                                    <td><?php echo $row['type_car']; ?></td>
-                                    <td><?php echo $row['model_car']; ?></td>
-                                    <td><?php echo $row['vin_car']; ?></td>
-                                    <td><?php echo $row['brand_car']; ?></td>
-                                    <td><?php echo $row['engine_car']; ?></td>
+                                    <td><?php echo $row['em_id']; ?></td>
+                                    <td><?php echo $row['em_name']; ?></td>
+                                    <td><?php echo $row['em_phonenumber']; ?></td>
+                                    <td><?php echo $row['em_position']; ?></td>
 
-                                    <td width="5%"><a href='save-info-cus/service.php?car_id=<?php echo $row['car_id']; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">บันทึก</a></td>
+                                    <td width="1%"><a href='addservice.php?em_id=<?php echo $row['em_id']; ?>&car_id=<?php echo $car_id; ?>' class="btn btn-dark" style="background-color: #4d4d4d;">เลือก</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>
                     </table>
                     <hr>
-                    <?php
+                    <?php 
 
-                    $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
+                        $page = ceil($total/$limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
 
-                    /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
-                    for ($i = 1; $i <= $page; $i++) {
-                        if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
-                        } else {
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
-                        }
-                    }
+                        /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
+                        for($i=1;$i<=$page;$i++){ 
+                                if($page == $i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
+                                    echo "หน้า &nbsp";
+                                    echo "<a href='?start=" .$limit*($i-1)."&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
+                                }
+                            else{
+                                    echo "หน้า &nbsp";
+                                    echo "<a href='?start=".$limit*($i-1)."&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+                                }
+                            }
                     ?>
                 </div>
             </div>

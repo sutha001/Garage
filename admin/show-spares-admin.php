@@ -58,8 +58,6 @@ $type_spare = $_GET['type_spare'] ?? "%";
             <div class="container">
                 <div class="info_right">
                     <h1>ข้อมูลราคาเมนูเรทราคาอะไหล่</h1>
-
-                  
                         
                         <form action="../admin/show-spares-admin.php?" method="get">
                         <div class="row d-flex flex-row">

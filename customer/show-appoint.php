@@ -1,6 +1,6 @@
-<?php include '../process/connect.php'; 
+<?php include '../process/connect.php';
 $cus_name = mysqli_real_escape_string($connect, $_GET['cus_name']);
-$string = "_%" ;
+$string = "_%";
 ?>
 
 <!DOCTYPE html>
@@ -19,35 +19,36 @@ $string = "_%" ;
 
 <body>
     <div class="area_all" style="background-color: black;">
-    <div class="menu_editor">
-        <div class="row_edit">
-            <a href="show-appoint.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลการนัดหมาย</a>
-        </div>
-        <div class="row_edit">
-            <a href="show-spares-customer.php?&cus_name=<?php echo $cus_name ?>&type_car=<?php echo "%25" ?>&type_spare=<?php echo "%25" ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
-        </div>
-        <div class="row_edit">
-            <a href="show-history-cus.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ประวัติการเข้าใช้บริการ</a>
+        <div class="menu_editor">
+            <div class="row_edit">
+                <a href="show-appoint.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #ffffff; color:#1b221b;">ข้อมูลการนัดหมาย</a>
+            </div>
+            <div class="row_edit">
+                <a href="show-spares-customer.php?&cus_name=<?php echo $cus_name ?>&type_car=<?php echo "%25" ?>&type_spare=<?php echo "%25" ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ข้อมูลอะไหล่</a>
+            </div>
+            <div class="row_edit">
+                <a href="show-history-cus.php?cus_name=<?php echo $cus_name ?>" class="btn btn-dark" style="background-color: #4f4f4f;">ประวัติการเข้าใช้บริการ</a>
+            </div>
+
         </div>
 
-    </div>
 
-    
-    <?php
-    if (!isset($start)) {
-        $start = 0;
-    }
-    $limit = '10';
+        <?php
+        if (!isset($start)) {
+            $start = 0;
+        }
+        $limit = '10';
 
-    $sql = "SELECT * 
+        $sql = "SELECT * 
     FROM appoint
     NATURAL JOIN customer
     WHERE cus_name = '$cus_name'";
-    $result = $connect->query($sql);echo $cus_name;
-    $total = mysqli_num_rows($result);
-    ?>
+        $result = $connect->query($sql);
+        echo $cus_name;
+        $total = mysqli_num_rows($result);
+        ?>
 
-<div class="other_editor">
+        <div class="other_editor">
             <div class="container">
                 <div class="info_right">
                     <h1>แจ้งเตือน</h1>
@@ -69,20 +70,26 @@ $string = "_%" ;
                                     <td><?php echo $row['cus_phonenumber']; ?></td>
                                     <td><?php echo $row['ap_data']; ?></td>
 
-                                    <td width="10%"><?php 
-                                    $creat_data = date('Y-m-d');
-                                    $ap_data = $row['ap_data'];
+                                    <td width="10%"><?php
+                                                    date_default_timezone_set('Asia/Bangkok');
+                                                    $creat_data = date('Y-m-d');
+                                                    $ap_data = $row['ap_data'];
 
 
-                                    $calculate =strtotime("$ap_data")-strtotime("$creat_data");
-                                    $summary=floor($calculate / 86400); // 86400 มาจาก 24*360 (1วัน = 24 ชม.)
+                                                    $calculate = strtotime("$ap_data") - strtotime("$creat_data");
+                                                    $summary = floor($calculate / 86400); // 86400 มาจาก 24*360 (1วัน = 24 ชม.)
 
-                                    if($summary <= 3 && $summary > 0){
-                                        echo "ใกล้ครบวันกำหนดการ";
-                                    }
-                                    if($summary == 0){
-                                        echo "วันนี้ครบกำหนดการ";
-                                    }?></td>
+                                                    if ($summary <= 3 && $summary > 0) {
+                                                        echo "<button type='button' class='btn btn-danger'>ใกล้ครบวันกำหนดการ</button>";
+                                                    }
+                                                    if ($summary == 0) {
+                                                        echo "<button  class='btn btn-success'>วันนี้ครบกำหนดการ</button>";
+                                                    }
+                                                    if ($summary < 0) {
+                                                        echo "<button  class='btn btn-dark'>ครบกำหนดการ</button>";
+                                                    }
+
+                                                    ?></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>

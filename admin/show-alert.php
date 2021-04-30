@@ -79,20 +79,27 @@
                                     <td><?php echo $row['cus_phonenumber']; ?></td>
                                     <td><?php echo $row['ap_data']; ?></td>
 
-                                    <td width="10%"><?php 
-                                    $creat_data = date('Y-m-d');
-                                    $ap_data = $row['ap_data'];
+                                    <td width="10%"><?php
+
+                                                    date_default_timezone_set('Asia/Bangkok');
+                                                    $creat_data = date('Y-m-d');
+                                                    $ap_data = $row['ap_data'];
 
 
-                                    $calculate =strtotime("$ap_data")-strtotime("$creat_data");
-                                    $summary=floor($calculate / 86400); // 86400 มาจาก 24*360 (1วัน = 24 ชม.)
+                                                    $calculate = strtotime("$ap_data") - strtotime("$creat_data");
+                                                    $summary = floor($calculate / 86400); // 86400 มาจาก 24*360 (1วัน = 24 ชม.)
 
-                                    if($summary <= 3 && $summary > 0){
-                                        echo "ใกล้ครบวันกำหนดการ";
-                                    }
-                                    if($summary == 0){
-                                        echo "วันนี้ครบกำหนดการ";
-                                    }?></td>
+                                                    if ($summary <= 3 && $summary > 0) {
+                                                        echo "<button type='button' class='btn btn-danger'>ใกล้ครบวันกำหนดการ</button>";
+                                                    }
+                                                    if ($summary == 0) {
+                                                        echo "<button  class='btn btn-success'>วันนี้ครบกำหนดการ</button>";
+                                                    }
+                                                    if ($summary < 0) {
+                                                        echo "<button  class='btn btn-dark'>ครบกำหนดการ</button>";
+                                                    }
+
+                                                    ?></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>

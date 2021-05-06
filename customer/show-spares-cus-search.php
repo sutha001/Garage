@@ -1,6 +1,7 @@
 <?php include '../process/connect.php';
 
 $string = "_%";
+$type_spare = $_GET["type_spare"];
 
 session_start();
 $cus_name = $_SESSION['cus_name'];
@@ -49,17 +50,25 @@ if (!isset($_SESSION['cus_name'])) {
                 $page = 1;
             }
             $start = ($page - 1) * $perpage;
-
-            $sql = "SELECT * FROM spares limit {$start} , {$perpage}";
-            $result = $connect->query($sql);
-            $total = mysqli_num_rows($result);
+            $check = 0;
+            if ($_GET["type_spare"] != " ") {
+                $sql = "SELECT * FROM spares WHERE spares_group LIKE '%" . $_GET["type_spare"] . "%' limit {$start} , {$perpage}";
+                $result = $connect->query($sql);
+                $total = mysqli_num_rows($result);
+                $check = 1;
+            } else {
+                $sql = "SELECT * FROM spares WHERE spares_type limit {$start} , {$perpage}";
+                $result = $connect->query($sql);
+                $total = mysqli_num_rows($result);
+                $check = 0;
+            }
 
             ?>
             <div class="other_editor">
                 <div class="container">
                     <div class="info_right">
                         <h1>ข้อมูลราคาเมนูเรทราคาอะไหล่</h1>
-                        <form action="show-spares-cus-search.php" method="get">
+                        <form action="<?= $_SERVER['SCRIPT_NAME']; ?>" method="get">
                             <div class="row">
                                 <div class="col-3">
                                     <label class="col-3" for="inputState" class="form-label">หมวด</label>
@@ -74,7 +83,6 @@ if (!isset($_SESSION['cus_name'])) {
                                         <option value="ทั่วไป">หมวดทั่วไป</option>
                                     </select>
                                 </div>
-
                                 <div class="col-2">
                                     <input type="submit" value="ค้นหา" class="btn btn-dark col-8">
                                 </div>
@@ -110,23 +118,30 @@ if (!isset($_SESSION['cus_name'])) {
                         </table>
                         <hr>
                         <?php
-                        $sql2 = "SELECT * FROM spares";
-                        $query2 = mysqli_query($connect, $sql2);
-                        $total_record = mysqli_num_rows($query2);
-                        $total_page = ceil($total_record / $perpage);
+                        if ($check == 1) {
+                            $sql2 = "SELECT * FROM spares WHERE spares_group LIKE '%" . $_GET["type_spare"] . "%' ";
+                            $query2 = mysqli_query($connect, $sql2);
+                            $total_record = mysqli_num_rows($query2);
+                            $total_page = ceil($total_record / $perpage);
+                        } else {
+                            $sql2 = "SELECT * FROM spares ";
+                            $query2 = mysqli_query($connect, $sql2);
+                            $total_record = mysqli_num_rows($query2);
+                            $total_page = ceil($total_record / $perpage);
+                        }
                         ?>
                         <nav>
                             <ul class="pagination">
                                 <li>
-                                    <a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-customer.php" aria-label="Previous">
+                                    <a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-cus-search.php?&type_spare=<?php echo $type_spare; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                                 <?php for ($i = 1; $i <= $total_page; $i++) { ?>
-                                    <li><a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-customer.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                    <li><a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-cus-search.php?page=<?php echo $i; ?>&type_spare=<?php echo $type_spare; ?>"><?php echo $i; ?></a></li>
                                 <?php } ?>
                                 <li>
-                                    <a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-customer.php?page=<?php echo $total_page; ?>" aria-label="Next">
+                                    <a class="btn btn-dark" style="background-color: #4d4d4d;" href="show-spares-cus-search.php?page=<?php echo $total_page; ?>&type_spare=<?php echo $type_spare; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

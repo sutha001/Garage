@@ -29,7 +29,7 @@ $result = $connect->query($sql);
 <body>
 
     <div class='allfrom'>
-        <h1>Add Appoint</h1>
+        <h1>นัดหมายลูกค้า</h1>
         <hr>
         <form action="../process/add-appoint-process.php" method="post">
             <div class="row">
@@ -59,7 +59,7 @@ $result = $connect->query($sql);
             <hr>
             <div class="row">
                 
-                    <input  type="submit" value="add appoint" class="btn btn-dark" style="margin:1% auto 1%">
+                    <input  type="submit" value="นัดหมาย" class="btn btn-dark" style="margin:1% auto 1%">
                     <a href="../admin/add-appoint.php" class="btn btn-dark">ย้อนกลับ</a>
                     
                

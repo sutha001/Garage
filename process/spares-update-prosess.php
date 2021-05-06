@@ -12,8 +12,9 @@ $price_spare = $_POST['price_spare'];
 $stock = $_POST['stock'];
 
 $sql = "UPDATE spares SET  
-			spares_type='$type_spare' ,
-			spares_model='$type_car' , 
+			spares_type='$type_car' ,
+			spares_group ='$type_spare',
+			spares_model='$brand_car' , 
 			spares_details='$details_spare' ,
 			spares_price='$price_spare' ,
 			stock ='$stock'

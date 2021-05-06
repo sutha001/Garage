@@ -13,20 +13,20 @@
 
 <body>
     <div class="allfrom">
-        <h1>Add Spares</h1>
+        <h1>เพิ่มข้อมูลอะไหล่รถยนต์</h1>
         <hr>
         <form action="../process/addsparesprocess.php" method="post">
             <div class="row">
                 <div class="col-4">
                     <label for="inputState" class="form-label">หมวด</label>
                     <select name="type_spare" class="form-select">
-                        <option value="เครื่องยนต์">หมวดเครื่องยนต์</option>
-                        <option value="เชื้อเพลิง">หมวดเชื้อเพลิง</option>
-                        <option value="ส่งกำลัง">หมวดส่งกำลัง</option>
-                        <option value="เครื่องปรับอากาศ">หมวดเครื่องปรับอากาศ</option>
-                        <option value="ตัวถังภายนอก">หมวดตัวถังภายนอก</option>
-                        <option value="ไฟฟ้า">หมวดไฟฟ้า</option>
-                        <option value="ทั่วไป">หมวดทั่วไป</option>
+                        <option value="หมวดเครื่องยนต์">หมวดเครื่องยนต์</option>
+                        <option value="หมวดเชื้อเพลิง">หมวดเชื้อเพลิง</option>
+                        <option value="หมวดส่งกำลัง">หมวดส่งกำลัง</option>
+                        <option value="หมวดเครื่องปรับอากาศ">หมวดเครื่องปรับอากาศ</option>
+                        <option value="หมวดตัวถังภายนอก">หมวดตัวถังภายนอก</option>
+                        <option value="หมวดไฟฟ้า">หมวดไฟฟ้า</option>
+                        <option value="หมวดทั่วไป">หมวดทั่วไป</option>
                     </select>
                 </div>
             </div>

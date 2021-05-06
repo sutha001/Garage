@@ -43,17 +43,22 @@ $date_access = $_POST['date_access'];
             </div>
         </div>
         <?php
-        if (!isset($start)) {
-            $start = 0;
-        }
-        $limit = '10';
+
+
         $car_id = $_POST['car_id'];
         $em_id = $_POST['em_id'];
 
-        mysqli_query($connect, "INSERT INTO service (date_access,car_id)
-        VALUES ('$date_access','$car_id')");
+        $sqlid = "SELECT * FROM customer_car WHERE car_id = $car_id";
+        $resultid = $connect->query($sqlid);
+        $rowid = mysqli_fetch_assoc($resultid);
 
-        $sql = "SELECT * FROM spares";
+        $brand = $rowid['brand_car'];
+        $brand_car = strtolower($brand);
+
+        $type_car = $rowid['type_car'];
+
+
+        $sql = "SELECT * FROM spares WHERE 	spares_model = '$brand_car' AND spares_type = '$type_car'";
         $result = $connect->query($sql);
         $total = mysqli_num_rows($result);
         ?>
@@ -89,19 +94,6 @@ $date_access = $_POST['date_access'];
                         </tbody>
                     </table>
                     <hr>
-                    <?php
-                    $page = ceil($total / $limit); // เอา record ทั้งหมด หารด้วย จำนวนที่จะแสดงของแต่ละหน้า
-                    /* เอาผลหาร มาวน เป็นตัวเลข เรียงกัน เช่น สมมุติว่าหารได้ 3 เอามาวลก็จะได้ 1 2 3 */
-                    for ($i = 1; $i <= $page; $i++) {
-                        if ($page == $i) { //ถ้าตัวแปล page ตรง กับ เลขที่วนได้ 
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'><B>$i</B></A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 1
-                        } else {
-                            echo "หน้า &nbsp";
-                            echo "<a href='?start=" . $limit * ($i - 1) . "&page=$i'>$i</A>"; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
-                        }
-                    }
-                    ?>
 
                 </div>
             </div>

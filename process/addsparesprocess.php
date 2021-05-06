@@ -16,6 +16,8 @@
 
     header('Refresh: 1; url=../admin/addspares.php');
 
+    
+
 
 
 ?>
